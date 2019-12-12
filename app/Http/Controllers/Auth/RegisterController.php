@@ -70,10 +70,12 @@ class RegisterController extends Controller
         $path = str_replace($array, '', $data['email']);
         $array1 =array('downloads', $path);
         $path1 = implode($array1, '/');
+        mkdir($path1, 0777, true);
+        chmod($path1, 0777);
         //public/downloads folderbe 
-        Storage::makeDirectory($path1, 0775, true);
+        //Storage::makeDirectory($path1, 0775, true);
         $data['path'] = $path;
-       
+    
         $test = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -85,8 +87,7 @@ class RegisterController extends Controller
             $userek = DB::table('users')->orderBy('id', 'desc')->first();
             DB::table('role_user')->insert(
                 ['role_id' => 2, 'user_id' => $userek->id, 'created_at' => $userek->created_at, 'updated_at' => $userek->updated_at]
-            ); 
-            
+            );    
          return ($test);  
     }
 }

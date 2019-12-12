@@ -11,6 +11,25 @@ use Illuminate\Support\Collection;
 
 class AdminController extends Controller
 {
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
+
     public function index()
     {
         $users = DB::table('users')
@@ -47,18 +66,25 @@ class AdminController extends Controller
     }
 
     public function update(Request $request) {
-    // 1-es id-t ne lehessen átírni
-        DB::table('role_user')
-            ->where('user_id', $request->user_id)
-            ->update(['role_id' => 2]);
+        if ($request->user_id != 1){
+            DB::table('role_user')
+                ->where('user_id', $request->user_id)
+                ->update(['role_id' => 2]);
+        }
         return redirect()->route('admin.index'); //message - törölve
     }
 
     public function destroy(Request $request) {
-    //1-es id-t ne lehessen törölni    
-        DB::table('role_user')
-            ->where('user_id', $request->user_id)
-            ->update(['role_id' => 2]);
+        if ($request->user_id != 1){
+            DB::table('role_user')
+                ->where('user_id', $request->user_id)
+                ->delete();
+
+            DB::table('users')
+                ->where('id', $request->user_id)
+                ->delete();
+            // fájlokat és üzeneteket is töröljem majd!!!    
+        }
         return redirect()->route('admin.index'); //message - törölve
     }
 }
