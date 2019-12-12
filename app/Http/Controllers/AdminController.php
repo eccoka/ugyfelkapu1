@@ -17,35 +17,25 @@ class AdminController extends Controller
             ->join('role_user', function($join){
                 $join->on('users.id', '=', 'role_user.user_id');
             })
+            ->orderBy('users.name', 'asc')
             ->get();
         //    dd($users);
         return view('admin.index', ['users' => $users]);
     }
 
-    public function show(){
-        $users = DB::table('users')
-            ->join('role_user', function($join){
-                $join->on('users.id', '=', 'role_user.user_id')
-                    ->where('role_user.role_id', '=', '1');
-            })
-            ->get();
-        //dd($users);
-
-        return view('admin.show', ['users' => $users]);
+    public function show()
+    {
 
     }
 
     public function create()
     {
-        $users = DB::table('users')
-            ->join('role_user', function($join){
-                $join->on('users.id', '=', 'role_user.user_id')
-                    ->where('role_user.role_id', '=', '2');
-            })
-            ->get();
-        //dd($users);
 
-        return view('admin.create', ['users' => $users]);
+    }
+
+    public function edit(Request $request)
+    {
+
     }
 
     public function store(Request $request) {
@@ -53,14 +43,22 @@ class AdminController extends Controller
         DB::table('role_user')
             ->where('user_id', $request->user_id)
             ->update(['role_id' => 1]);
-        return redirect()->route('admin.create'); //message - létrehozva
+        return redirect()->route('admin.index'); //message - létrehozva
     }
 
-    public function destroy(Request $request) {
-        
+    public function update(Request $request) {
+    // 1-es id-t ne lehessen átírni
         DB::table('role_user')
             ->where('user_id', $request->user_id)
             ->update(['role_id' => 2]);
-        return redirect()->route('admin.show'); //message - törölve
+        return redirect()->route('admin.index'); //message - törölve
+    }
+
+    public function destroy(Request $request) {
+    //1-es id-t ne lehessen törölni    
+        DB::table('role_user')
+            ->where('user_id', $request->user_id)
+            ->update(['role_id' => 2]);
+        return redirect()->route('admin.index'); //message - törölve
     }
 }

@@ -23,8 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/create', 'FileController@create')->name('file.create')->middleware('role:admin');
 
 Route::get('/admin', 'AdminController@index')->name('admin.index');
-Route::post('/admin', 'AdminController@store')->name('admin.store')->middleware('role:admin');
-Route::get('/admin/create', 'AdminController@create')->name('admin.create')->middleware('role:admin');
-Route::get('/admin/{admin}', 'AdminController@show')->name('admin.show')->middleware('role:admin');
-Route::put('/admin/{admin}', 'AdminController@update')->name('admin.show')->middleware('role:admin');
-Route::post('/admin/delete', 'AdminController@delete')->name('admin.delete')->middleware('role:admin');
+Route::post('/admin/store', 'AdminController@store')->name('admin.store')->middleware('role:admin');
+//show és edit -t lehet hogy kéne, hogy admin alol lehessen updateelni a user adatait?!
+Route::post('/admin/update', 'AdminController@update')->name('admin.update')->middleware('role:admin');
+Route::post('/admin/destroy', 'AdminController@destroy')->name('admin.destroy')->middleware('role:admin');
