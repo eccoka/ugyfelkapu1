@@ -9,24 +9,7 @@ use App\Http\Controllers\Controller;
 
 class FileController extends Controller
 {
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +17,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return view('file.index');
     }
 
     /**
@@ -44,13 +27,7 @@ class FileController extends Controller
      */
     public function create()
     {
-        $users = DB::table('users')
-            ->join('role_user', function($join){
-                $join->on('users.id', '=', 'role_user.user_id')
-                    ->where('role_user.role_id', '=', '2');
-            })
-            ->get();
-        return view('file.create', ['users' => $users]);
+        return view('file.create');
     }
 
     /**
@@ -96,7 +73,7 @@ class FileController extends Controller
      * @param  \App\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, File $file)
+    public function update(File $file)
     {
         //
     }

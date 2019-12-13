@@ -44,8 +44,9 @@
                 <div class="col-md-2">{{ $user->tel }}</div>
                 <div class="col-md-2"> Adminisztrátor </div>
                 <div class="col-md-2">
-                    <form method="POST" action="{{ route('admin.update') }}">
+                    <form method="POST" action="{{ route('admin.store') }}/{{ $user->id }}">
                         @csrf
+                        @method('PUT')
                         <input type="hidden" id="user_id" name="user_id" value="{{ $user->id }}">
                         <button type="submit" class="btn btn-danger">
                             {{ __('Admin törlés') }}

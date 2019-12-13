@@ -8,22 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
-
 class AdminController extends Controller
 {
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('role:admin');

@@ -13,10 +13,12 @@
             </a>
         </div>
         <div class="card col-md-3 offset-md-1">
-            <div class="card-body">
-                <i class="fas fa-file"></i>
-                <div class="card-title">Fájl admin</div>
-            </div>
+            <a href="{{ route('file.index') }}">
+                <div class="card-body">
+                    <i class="fas fa-file"></i>
+                    <div class="card-title">Fájl admin</div>
+                </div>
+            </a>    
         </div>
         <div class="card col-md-3 offset-md-1">
             <div class="card-body">

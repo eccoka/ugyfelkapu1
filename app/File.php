@@ -9,4 +9,8 @@ class File extends Model
     protected $fillable = [
         'name', 'path'
     ];
+
+    public function owner(){
+        return $this->belongsTo(User::class);
+    }
 }
