@@ -21,6 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/file', 'FileController@index')->name('file.index')->middleware('role:admin');
+Route::get('/file/create', 'FileController@create')->name('file.create')->middleware('role:admin');
+Route::post('/file', 'FileController@store')->name('file.store')->middleware('role:admin');
 //Route::get('/create', 'FileController@create')->name('file.create');
 
 Route::get('/admin', 'AdminController@index')->name('admin.index');

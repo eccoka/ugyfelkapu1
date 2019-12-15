@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row" style="font-size: 1rem;">
         <div class="card col-md-3">
-            <a href="">
+            <a href="{{ route('file.create') }}">
                 <div class="card-body">
                     <i class="fas fa-file-upload" ></i>
                     <div class="card-title">File feltöltés</div>

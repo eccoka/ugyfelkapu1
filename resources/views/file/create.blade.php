@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Fájl feltöltés') }}</div>
     
                     <div class="card-body">
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('file.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label for="userid" class="col-md-4 col-form-label text-md-right">{{ __('Ügyfél neve') }}</label>
@@ -17,17 +17,19 @@
                                         <select name="userid" id="userid" class="form-control">
                                                 <option selected> Felhasználók </option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @if ($user->role_id == 2)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endif
                                                 @endforeach
                                         </select>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="filename" class="col-md-4 col-form-label text-md-right">{{ __('Fájlnév') }}</label>
+                                <label for="filenames" class="col-md-4 col-form-label text-md-right">{{ __('Fájlnév') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="filename" type="text" class="form-control" name="filename" required autocomplete="name" autofocus>
+                                    <input id="filenames" type="file" class="form-control" name="filenames[]" required multiple>
                                 </div>
                             </div>
     
