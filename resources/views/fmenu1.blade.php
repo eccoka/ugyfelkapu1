@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="card col-md-3 offset-md-1">
-            <a href="">
+            <a href="{{ route('file.index') }}">
                 <div class="card-body">
                     <i class="fas fa-list"></i>
                     <div class="card-title">File lista</div>

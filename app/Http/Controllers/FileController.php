@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\File;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -19,8 +19,16 @@ class FileController extends Controller
      */
     public function index()
     {
-        //felhsználók akikhez van file.
-        return view('file.index');
+        $files = array();
+        $users = DB::table('users')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('files', 'files.userid', '=', 'users.id')
+            ->select('users.id', 'users.name','files.fid', 'files.filename', 'files.created_at')  
+            ->where('role_user.role_id', "=", 2)
+            ->orderBy('users.name', 'asc')
+            ->get();
+           // dd($users);
+        return view('file.index', ['users' => $users]);
     }
 
     /**
@@ -101,10 +109,22 @@ class FileController extends Controller
         //
     }
 
-    public function destroy(File $file)
+    public function destroy(Request $request)
     {
-        // show-ból meghatározott user meghatározott file-ját törli.
-        // törlés a files táblából
-        // File törlése a könyvtárból!
+        $dir = DB::table('users')
+                ->select('path')    
+                ->where('id', '=', $request->u_id)
+                ->get();
+        $path_a[] = 'downloads';
+        $path_a[] = $dir[0]->path;
+        $path_a[] = $request->f_name;   
+        $path = implode('/', $path_a);
+ //       $path = public_path($path);
+
+        File::delete($path);
+       // dd($path);
+        DB::table('files')->where('fid', '=', $request->f_id)->delete();
+
+        return redirect()->route('file.index');
     }
 }

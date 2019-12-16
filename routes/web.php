@@ -19,12 +19,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('/file', 'FileController');
+/*
 Route::get('/file', 'FileController@index')->name('file.index')->middleware('role:admin');
 Route::get('/file/create', 'FileController@create')->name('file.create')->middleware('role:admin');
 Route::post('/file', 'FileController@store')->name('file.store')->middleware('role:admin');
+Route::delete('/file/{file}', 'FileController@destroy')->name('file.destroy')->middleware('role:admin');
 //Route::get('/create', 'FileController@create')->name('file.create');
-
+*/
 Route::get('/admin', 'AdminController@index')->name('admin.index');
 Route::post('/admin', 'AdminController@store')->name('admin.store');
 //show és edit -t lehet hogy kéne, hogy admin alol lehessen updateelni a user adatait?!

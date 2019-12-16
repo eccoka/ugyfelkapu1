@@ -1,9 +1,13 @@
 @extends('../layouts.app')
 
 @section('content')
+    @include('../amenu1')
+    <br>
+    @include('../fmenu1')
+    <br>
 <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-11">
                 <div class="card">
                     <div class="card-header">{{ __('Fájl feltöltés') }}</div>
     
@@ -44,6 +48,7 @@
                     </div>
                 </div>
             </div>
+            <div class="offset-md-1">
         </div>
     </div>
 @endsection
