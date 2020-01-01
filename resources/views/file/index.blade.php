@@ -27,10 +27,10 @@
                     <form method="POST" action="file/{{ $user->fid }}">
                             @csrf
                             @method('DELETE')
-                    <input type="hidden" name="u_id" value="{{ $user->id }}">
-                    <input type="hidden" name="f_name" value="{{ $user->filename }}">
-                    <input type="hidden" name="f_id" value="{{ $user->fid }}">
-                    <button type="submit" class="btn btn-danger"> {{ __('Törlés') }}</button>
+                        <input type="hidden" name="u_id" value="{{ $user->id }}">
+                        <input type="hidden" name="f_name" value="{{ $user->filename }}">
+                        <input type="hidden" name="f_id" value="{{ $user->fid }}">
+                        <button type="submit" class="btn btn-danger"> {{ __('Törlés') }}</button>
                     </form>
                 </td>
             </tr>

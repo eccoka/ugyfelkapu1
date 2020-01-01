@@ -21,10 +21,12 @@
             </a>    
         </div>
         <div class="card col-md-3 offset-md-1">
-            <div class="card-body">
-                <i class="fas fa-envelope"></i>
-                <div class="card-title">Üzenet admin</div>
-            </div>
+            <a href="{{ route('message.create') }}">
+                <div class="card-body">
+                    <i class="fas fa-envelope"></i>
+                    <div class="card-title">Üzenet admin</div>
+                </div>
+            </a>
         </div>
     </div>
 </div>

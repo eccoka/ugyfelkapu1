@@ -19,7 +19,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/file/delete', 'FileController@delete')->name('file.delete');
 Route::resource('/file', 'FileController');
+rOUTE::resource('/message', 'MessageController');
 /*
 Route::get('/file', 'FileController@index')->name('file.index')->middleware('role:admin');
 Route::get('/file/create', 'FileController@create')->name('file.create')->middleware('role:admin');

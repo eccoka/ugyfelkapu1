@@ -63,6 +63,10 @@ class AdminController extends Controller
 
     public function destroy(Request $request) {
         if ($request->user_id != 1){
+            DB::table('files')
+                ->where('userid', $request->user_id)
+                ->delete();    
+
             DB::table('role_user')
                 ->where('user_id', $request->user_id)
                 ->delete();
@@ -70,6 +74,7 @@ class AdminController extends Controller
             DB::table('users')
                 ->where('id', $request->user_id)
                 ->delete();
+                
             // fájlokat és üzeneteket is töröljem majd!!!    
         }
         return redirect()->route('admin.index'); //message - törölve

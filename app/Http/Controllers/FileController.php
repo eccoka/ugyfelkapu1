@@ -12,11 +12,11 @@ use Illuminate\Support\Carbon;
 class FileController extends Controller
 {
   
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     public function index()
     {
         $files = array();
@@ -31,11 +31,6 @@ class FileController extends Controller
         return view('file.index', ['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $users = DB::table('users')
@@ -48,14 +43,10 @@ class FileController extends Controller
         return view('file.create', ['users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
 
     public function store(Request $request)
     {
-        // dump(request()->all());
-        // E-mail-t küldjön h fel lett a usernek föltve file!!
+// E-mail-t küldjön h fel lett a usernek föltve file!!
         $filees = array();
         $userid = $request->userid;
         $filepath_1 = DB::table('users')
@@ -81,20 +72,13 @@ class FileController extends Controller
                     ]);
             }
         }
-        //echo $filepath_11;
-        //dd($filepath_11);
-        return redirect()->back()->with('message', 'Successfully Save Your Image file.'); // feltöltve üzi kell. Email küldés kell.
+        return redirect()->back()->with('success', 'A feltöltés sikeres!'); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\File  $file
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(File $file)
     {
-        //usert választva ahhoz tartozó fileokat megjeleníti - törlés gomb egyesével!
+//usert választva ahhoz tartozó fileokat megjeleníti - törlés gomb egyesével!
     }
 
 
@@ -119,12 +103,26 @@ class FileController extends Controller
         $path_a[] = $dir[0]->path;
         $path_a[] = $request->f_name;   
         $path = implode('/', $path_a);
- //       $path = public_path($path);
+
 
         File::delete($path);
-       // dd($path);
         DB::table('files')->where('fid', '=', $request->f_id)->delete();
 
         return redirect()->route('file.index');
     }
+
+    public function delete()
+    {
+        $files = array();
+        $users = DB::table('users')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('files', 'files.userid', '=', 'users.id')
+            ->select('users.id', 'users.name','files.fid', 'files.filename', 'files.created_at')  
+            ->where('role_user.role_id', "=", 2)
+            ->orderBy('files.filename', 'asc')
+            ->get();
+
+        return view('file.delete', ['users' => $users]);
+    }
+
 }

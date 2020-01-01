@@ -46,6 +46,7 @@
                             </div>
                         </form>
                     </div>
+                    @include('flash-message')
                 </div>
             </div>
             <div class="offset-md-1">
