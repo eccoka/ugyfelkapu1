@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin');
+    }
+
     public function index()
     {
         $messages = DB::table('messages')
@@ -43,18 +48,23 @@ class MessageController extends Controller
  //e-mail a feltöltött üzivel
 
         $adminid = Auth::id();
-        
-        DB::table('messages')->insert([
-            'creator'    => $adminid,
-            'userid'     => $request->m_user,
-            'title'      => $request->m_title,
-            'body'       => $request->m_body,
-            'read'       => 0,
-            'created_at' => now(),
-            'updated_at' => now(),
-            ]);
+
+        if ($request->m_body != null) {
+            DB::table('messages')->insert([
+                'creator'    => $adminid,
+                'userid'     => $request->m_user,
+                'title'      => $request->m_title,
+                'body'       => $request->m_body,
+                'read'       => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+                ]);
 
             return redirect()->back()->with('success', 'Sikeres üzenetküldés!');
+        }
+        else {
+            return redirect()->back()->with('error', 'Kérem írja be az üzenet szövegét!');
+        }
     }
 
     /**

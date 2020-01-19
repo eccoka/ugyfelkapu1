@@ -24,10 +24,21 @@
                     </div>
                     <div class="form-group">
                         <label for="m_title">Tárgy</label>
-                        <input id="m_title" class="form-control" type="text" name="m_title">
+                        <input id="m_title" type="text" class="form-control @error('m_title') is-invalid @enderror" name="m_title" value="{{ old('m_title') }}" required autocomplete="m_title" autofocus>
+
+                                @error('m_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     </div>
                     <div class="form-group">
-                        <textarea id="noise" name="m_body" class="widgEditor nothing form-control"></textarea>
+                        <textarea id="noise" class="widgEditor nothing form-control @error('m_body') is-invalid @enderror" name="m_body" required>{{ old('m_body') }}</textarea>
+                            @error('m_body')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                     </div>
                     <button class="btn btn-primary mb-3" type="submit">Küldés</button>
                 </form>

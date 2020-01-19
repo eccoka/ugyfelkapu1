@@ -19,9 +19,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/files', 'HomeController@showFiles')->name('files');
+Route::get('/messages', 'HomeController@showMessages')->name('messages');
+Route::post('/messages', 'HomeController@readMessages')->name('read.messages');
+Route::get('/personal', 'HomeController@changePersonal')->name('personal');
+Route::post('/personal', 'HomeController@storePersonal')->name('store.personal');
+
 Route::get('/file/delete', 'FileController@delete')->name('file.delete');
 Route::resource('/file', 'FileController');
-rOUTE::resource('/message', 'MessageController');
+Route::resource('/message', 'MessageController');
+
 /*
 Route::get('/file', 'FileController@index')->name('file.index')->middleware('role:admin');
 Route::get('/file/create', 'FileController@create')->name('file.create')->middleware('role:admin');

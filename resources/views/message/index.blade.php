@@ -27,7 +27,13 @@
                                 <td>{{ $message->title }}</td>
                                 <td><a class="btn btn-primary" data-toggle="collapse" href="#collapse{{ $message->mid }}" role="button" aria-expanded="false" aria-controls="collapse{{ $message->mid }}">Üzenet szövege</a></td>
                                 <td>{{ $message->created_at }}</td>
-                                <td>{{ $message->read }}</td>
+                                <td>
+                                    @if( $message->read == 0)
+                                        Nincs
+                                    @else
+                                        Olvasva
+                                    @endif
+                                </td>
                                 <td>
                                     @if( $buttons == 1)
                                     <form method="GET" action="message/{{ $message->mid }}/edit">
